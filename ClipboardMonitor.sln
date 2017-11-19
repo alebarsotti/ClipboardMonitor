@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClipboardMonitor.Utilities"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClipboardMonitor.Data", "ClipboardMonitor.Data\ClipboardMonitor.Data.csproj", "{91EE1A33-EEA8-416B-9176-7528D4498295}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClipboardMonitor.UX", "ClipboardMonitor.UX\ClipboardMonitor.UX.csproj", "{9DDB2D74-A96E-4D61-B600-5A437558F2B6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{91EE1A33-EEA8-416B-9176-7528D4498295}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{91EE1A33-EEA8-416B-9176-7528D4498295}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{91EE1A33-EEA8-416B-9176-7528D4498295}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9DDB2D74-A96E-4D61-B600-5A437558F2B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DDB2D74-A96E-4D61-B600-5A437558F2B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DDB2D74-A96E-4D61-B600-5A437558F2B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DDB2D74-A96E-4D61-B600-5A437558F2B6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
