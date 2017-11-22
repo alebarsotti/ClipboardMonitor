@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("ClipboardMonitor")]
+[assembly: AssemblyTitle("ClipboardMonitor.Services")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("ClipboardMonitor")]
+[assembly: AssemblyProduct("ClipboardMonitor.Services")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("c594e27e-7bb0-4d00-94b4-3a2727bb5cd6")]
+[assembly: Guid("7de4e4fc-84da-4b7d-bbe1-242b74c3e36f")]
 
 // Version information for an assembly consists of the following four values:
 //

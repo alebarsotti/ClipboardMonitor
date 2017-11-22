@@ -1,6 +1,7 @@
 ﻿namespace ClipboardMonitor.UX
 {
     using ClipboardMonitor.Utilities;
+    using ClipboardMonitor.Data;
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
@@ -31,23 +32,59 @@
 
             InitializeComponent();
 
+            InitializeDB();
+
             lbClipboardHistory.ItemsSource = ClipboardHistorySource;
 
-            //ClipboardNotification.AddEventHandler(DoSomething);
             ClipboardNotification.AddEventHandler(UpdateClipboardHistorySource);
+        }
+
+        private void InitializeDB()
+        {
+            using (var db = new ClipboardMonitorContext())
+            {
+                db.Database.EnsureCreated();
+
+                ClipboardHistorySource = new ObservableCollection<ClipboardEntryModel>(
+                    db.ClipboardEntries.Select(x => new ClipboardEntryModel()
+                    {
+                        CopiedText = x.CopiedText,
+                        ProcessName = x.ProcessName,
+                        Time = x.Time,
+                        WindowTitle = x.WindowTitle
+                    }
+                    ).ToList());
+            }
         }
 
         public void UpdateClipboardHistorySource(object sender, ClipboardUpdateEventArgs args)
         {
-            ClipboardHistorySource.Add(new ClipboardEntryModel()
+            var newEntry = new ClipboardEntryModel()
             {
                 CopiedText = args.CopiedText,
                 ProcessName = args.ProcessName,
                 Time = args.Time,
                 WindowTitle = args.WindowTitle
-            });
+            };
 
-            //lbClipboardHistory.ItemsSource = ClipboardHistorySource;
+            using (var db = new ClipboardMonitorContext())
+            {
+                var newRecord = new ClipboardEntry()
+                {
+                    CopiedText = newEntry.CopiedText,
+                    ProcessName = newEntry.ProcessName,
+                    Time = newEntry.Time,
+                    WindowTitle = newEntry.WindowTitle
+                };
+
+                db.ClipboardEntries.Add(newRecord);
+
+                db.SaveChanges();
+
+                // Actualizar
+                ClipboardHistorySource.Add(newEntry);
+            }
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
