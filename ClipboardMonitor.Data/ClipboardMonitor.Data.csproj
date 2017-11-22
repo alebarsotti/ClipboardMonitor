@@ -123,6 +123,7 @@
   <ItemGroup>
     <Compile Include="ClipboardEntry.cs" />
     <Compile Include="ClipboardMonitorContext.cs" />
+    <Compile Include="Process.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

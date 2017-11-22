@@ -18,21 +18,24 @@
     using System.Windows.Media.Imaging;
     using System.Windows.Navigation;
     using System.Windows.Shapes;
+    using ClipboardMonitor.Contracts;
+    using ClipboardMonitor.Services;
 
     /// <summary>
     /// Lógica de interacción para la ventana principal.
     /// </summary>
     public partial class MainWindow : Window
     {
-        public ObservableCollection<ClipboardEntryModel> ClipboardHistorySource { get; set; }
+        private IDatabaseService DatabaseService { get; set; }
+        private ObservableCollection<ClipboardHistoryModel> ClipboardHistorySource { get; set; } = new ObservableCollection<ClipboardHistoryModel>();
 
         public MainWindow()
         {
-            ClipboardHistorySource = new ObservableCollection<ClipboardEntryModel>();
-
-            InitializeComponent();
+            DatabaseService = new DatabaseService();
 
             InitializeDB();
+
+            InitializeComponent();
 
             lbClipboardHistory.ItemsSource = ClipboardHistorySource;
 
@@ -45,55 +48,46 @@
             {
                 db.Database.EnsureCreated();
 
-                ClipboardHistorySource = new ObservableCollection<ClipboardEntryModel>(
-                    db.ClipboardEntries.Select(x => new ClipboardEntryModel()
-                    {
-                        CopiedText = x.CopiedText,
-                        ProcessName = x.ProcessName,
-                        Time = x.Time,
-                        WindowTitle = x.WindowTitle
-                    }
-                    ).ToList());
+                // Inicializar ClipboardHistorySource.
+                ClipboardHistorySource = new ObservableCollection<ClipboardHistoryModel>(DatabaseService.GetClipboardHistory(new GetClipboardHistoryRequest()).ClipboardHistoryCollection);
             }
         }
 
         public void UpdateClipboardHistorySource(object sender, ClipboardUpdateEventArgs args)
         {
-            var newEntry = new ClipboardEntryModel()
+            var newEntry = DatabaseService.CreateClipboardHistory(new CreateClipboardHistoryRequest()
             {
                 CopiedText = args.CopiedText,
                 ProcessName = args.ProcessName,
                 Time = args.Time,
                 WindowTitle = args.WindowTitle
-            };
+            }).ClipboardHistory;
 
-            using (var db = new ClipboardMonitorContext())
-            {
-                var newRecord = new ClipboardEntry()
-                {
-                    CopiedText = newEntry.CopiedText,
-                    ProcessName = newEntry.ProcessName,
-                    Time = newEntry.Time,
-                    WindowTitle = newEntry.WindowTitle
-                };
-
-                db.ClipboardEntries.Add(newRecord);
-
-                db.SaveChanges();
-
-                // Actualizar
-                ClipboardHistorySource.Add(newEntry);
-            }
-
+            // Actualizar ClipboardHistorySource.
+            ClipboardHistorySource.Add(newEntry);
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void CopyEntryButtonClick(object sender, RoutedEventArgs e)
         {
-            var selectedItem = (ClipboardEntryModel)lbClipboardHistory.SelectedItem;
+            var selectedItem = (ClipboardHistoryModel)lbClipboardHistory.SelectedItem;
 
             if (selectedItem != null)
             {
-                MessageBox.Show(string.Format("Seleccionaste: {0}", selectedItem.ProcessName));
+                Clipboard.SetText(selectedItem.CopiedText);
+
+                MessageBox.Show("¡Se ha copiado la entrada al portapapeles!");
+            }
+        }
+
+        private void DeleteEntryButtonClick(object sender, RoutedEventArgs e)
+        {
+            var selectedItem = (ClipboardHistoryModel)lbClipboardHistory.SelectedItem;
+
+            if (selectedItem != null)
+            {
+                // TODO: Utilizar servicio para eliminar la entrada seleccionada.
+
+                // TODO: Actualizar UI para reflejar la eliminación.
             }
         }
     }

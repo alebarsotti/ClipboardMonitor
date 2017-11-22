@@ -162,7 +162,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ClipboardEntryModel.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -196,9 +195,17 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ClipboardMonitor.Contracts\ClipboardMonitor.Contracts.csproj">
+      <Project>{9AB03E5F-2D15-491B-808E-882564E9B28E}</Project>
+      <Name>ClipboardMonitor.Contracts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ClipboardMonitor.Data\ClipboardMonitor.Data.csproj">
       <Project>{9c9e9f46-f314-46e2-a5f8-21c9a93e1a87}</Project>
       <Name>ClipboardMonitor.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ClipboardMonitor.Services\ClipboardMonitor.Services.csproj">
+      <Project>{7DE4E4FC-84DA-4B7D-BBE1-242B74C3E36F}</Project>
+      <Name>ClipboardMonitor.Services</Name>
     </ProjectReference>
     <ProjectReference Include="..\ClipboardMonitorUtility\ClipboardMonitor.Utilities.csproj">
       <Project>{0FDD4B5B-ED0A-4F63-BD96-30374DAB5ABA}</Project>

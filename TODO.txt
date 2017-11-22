@@ -1,0 +1,15 @@
+TODOs:
+    - Tests.
+    - Dependency injection.
+    - Search.
+    - Favorite entries.
+    - Disable monitor for certain processes.
+    - Global hotkey for showing the main window.
+    - Insert entry text by double-clicking its row.
+    - Edit entry.
+    - Auto-delete old entries.
+    - Avoid duplicate entries.
+    - Implement ObservableCollection with custom methods.
+
+Done:
+    

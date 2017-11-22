@@ -38,18 +38,18 @@
 
                 var args = new ClipboardUpdateEventArgs();
 
-                // Verificar que el contenido sea texto.
-                if (iData.GetDataPresent(DataFormats.Text))
+                // Verificar que el contenido sea texto y que el nombre del proceso sea distinto al de la propia aplicación.
+                if (iData.GetDataPresent(DataFormats.Text) && args.ProcessName != System.Diagnostics.Process.GetCurrentProcess().ProcessName)
                 {
                     // Convertir el contenido a string.
                     var clipboardData = (string)iData.GetData(DataFormats.Text);
 
                     // Establecer contenido de los EventArgs.
                     args.CopiedText = clipboardData;
+                    
+                    // Lanzar evento.
+                    OnClipboardUpdate(args);
                 }
-
-                // Lanzar evento.
-                OnClipboardUpdate(args);
             }
 
             base.WndProc(ref m);

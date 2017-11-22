@@ -6,23 +6,45 @@
         xmlns:local="clr-namespace:ClipboardMonitor.UX"
         xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="ClipboardMonitor.UX.MainWindow"
         mc:Ignorable="d"
-        Title="{DynamicResource MainWindowTitle}" Height="500" Width="350">
-    <Grid Margin="10,0,20,0" VerticalAlignment="Top">
-        <ListBox Name="lbClipboardHistory" Margin="10,41,0,58">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <WrapPanel>
-                        <TextBlock Text="Texto copiado: " />
-                        <TextBlock Text="{Binding CopiedText}" FontWeight="Bold" />
-                        <!--<TextBlock Text="Name: " />
-                        <TextBlock Text="{Binding Time}" />-->
-                    </WrapPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-        <Label Content="Historial del Portapapeles" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-        <Button Content="{DynamicResource CopyEntryText}" Margin="212,429,0,0" Background="#FF134A78" Foreground="White" HorizontalContentAlignment="Center"/>
-        <Button Margin="10,429,203,0" Content="{DynamicResource DeleteEntryText}"/>
-        <Button Content="{DynamicResource ViewEntryDetailsText}" Margin="60,396,60,0" VerticalAlignment="Top" Click="Button_Click"/>
+        Title="{DynamicResource MainWindowTitle}" Height="500" Width="800" MinWidth="800" MinHeight="500">
+    <Window.Resources>
+        <DataTemplate x:Key="ClipboardEntryDetailTemplate">
+            <DockPanel>
+                <TextBlock DockPanel.Dock="Top" Text="Proceso:" FontWeight="Bold"/>
+                <TextBlock DockPanel.Dock="Top" Text="{Binding Path=ProcessName}" Margin="10" TextWrapping="Wrap"/>
+                <TextBlock DockPanel.Dock="Top" Text="Título de la ventana:" FontWeight="Bold"/>
+                <TextBlock DockPanel.Dock="Top" Text="{Binding Path=WindowTitle}" Margin="10" TextWrapping="Wrap"/>
+                <TextBlock DockPanel.Dock="Top" Text="Fecha y hora:" FontWeight="Bold"/>
+                <TextBlock DockPanel.Dock="Top" Text="{Binding Path=Time}" Margin="10"/>
+                <TextBlock DockPanel.Dock="Top" Text="Texto copiado:" FontWeight="Bold"/>
+                <TextBox DockPanel.Dock="Top" Text="{Binding Path=CopiedText}" TextWrapping="Wrap" Margin="10" VerticalScrollBarVisibility="Auto"/>
+            </DockPanel>
+        </DataTemplate>
+    </Window.Resources>
+    <Grid Margin="10">
+        <Grid Margin="0,0,304,0">
+            <ListBox Name="lbClipboardHistory" Margin="0,41,20,10" IsSynchronizedWithCurrentItem="True">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <DockPanel>
+                                <TextBlock DockPanel.Dock="Left" Text="Texto copiado: " />
+                                <TextBlock DockPanel.Dock="Left" Text="{Binding CopiedTextSummary}" FontWeight="Bold"/>
+                            </DockPanel>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <Label Content="Historial del Portapapeles" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold"/>
+        </Grid>
+        <Grid HorizontalAlignment="Right" Width="304">
+            <Button Content="{DynamicResource CopyEntryText}" Background="#FF134A78" Foreground="White" HorizontalContentAlignment="Center" HorizontalAlignment="Right" Width="130" Margin="0,0,10,10" Height="20" VerticalAlignment="Bottom" Click="CopyEntryButtonClick"/>
+            <Button Margin="10,0,0,10" Content="{DynamicResource DeleteEntryText}" HorizontalAlignment="Left" Width="130" Height="20" VerticalAlignment="Bottom" Click="DeleteEntryButtonClick"/>
+            <Border BorderThickness="1" BorderBrush="{DynamicResource {x:Static SystemColors.AppWorkspaceBrushKey}}" Margin="0,31,10,50">
+                <ContentControl Content="{Binding ElementName=lbClipboardHistory, Path=SelectedItem}" ContentTemplate="{StaticResource ClipboardEntryDetailTemplate}" HorizontalAlignment="Left" Margin="10,10,0,9" Width="273"/>
+            </Border>
+            <Label Content="Detalles" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold"/>
+
+        </Grid>
     </Grid>
 </Window>

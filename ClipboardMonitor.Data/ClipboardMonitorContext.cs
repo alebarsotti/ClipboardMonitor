@@ -1,33 +1,22 @@
 namespace ClipboardMonitor.Data
 {
     using Microsoft.EntityFrameworkCore;
-    using System;
-    using System.Linq;
 
     public class ClipboardMonitorContext : DbContext
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Filename=D:\\Escritorio\\PruebaDB.db");
+            optionsBuilder.UseSqlite("Filename=ClipboardMonitor.db");
         }
 
-        //public ClipboardMonitorContext()
-        //    : base("name=ClipboardMonitorContext")
-        //{
-        //    Database.SetInitializer<ClipboardMonitorContext>(new CreateDatabaseIfNotExists<ClipboardMonitorContext>);
-        //}
+        public virtual DbSet<ClipboardHistory> ClipboardHistory { get; set; }
+        public virtual DbSet<Process> Process { get; set; }
 
-        // Add a DbSet for each entity type that you want to include in your model. For more information 
-        // on configuring and using a Code First model, see http://go.microsoft.com/fwlink/?LinkId=390109.
-
-        // public virtual DbSet<MyEntity> MyEntities { get; set; }
-        public virtual DbSet<ClipboardEntry> ClipboardEntries { get; set; }
-        
-        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        //{
-        //    // Database does not pluralize table names
-        //    modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
-        //}
-
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Process>()
+                .HasMany(x => x.ClipboardHistory)
+                .WithOne(x => x.Process);
+        }
     }
 }

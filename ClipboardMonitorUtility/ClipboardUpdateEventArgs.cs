@@ -19,7 +19,10 @@
             (ProcessName, WindowTitle) = GetForegroundProcessName();
         }
 
-        // Returns the name of the process owning the foreground window.
+        /// <summary>
+        /// Devuelve el nombre del proceso y el título de la ventana que posee el foco en el momento.
+        /// </summary>
+        /// <returns></returns>
         private (string, string) GetForegroundProcessName()
         {
             IntPtr hwnd = NativeMethods.GetForegroundWindow();
@@ -29,12 +32,8 @@
 
             NativeMethods.GetWindowThreadProcessId(hwnd, out uint pid);
 
-            //foreach (System.Diagnostics.Process p in System.Diagnostics.Process.GetProcesses())
-            //{
-            //    if (p.Id == pid)
-            //        return p.ProcessName;
-            //}
             var process = System.Diagnostics.Process.GetProcessById((int)pid);
+
             return (process?.ProcessName, process?.MainWindowTitle);
         }
     }

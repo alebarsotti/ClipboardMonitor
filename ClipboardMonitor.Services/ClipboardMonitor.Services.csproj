@@ -119,11 +119,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DatabaseService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ClipboardMonitor.Contracts\ClipboardMonitor.Contracts.csproj">
+      <Project>{9AB03E5F-2D15-491B-808E-882564E9B28E}</Project>
+      <Name>ClipboardMonitor.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ClipboardMonitor.Data\ClipboardMonitor.Data.csproj">
+      <Project>{9C9E9F46-F314-46E2-A5F8-21C9A93E1A87}</Project>
+      <Name>ClipboardMonitor.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\SQLitePCLRaw.lib.e_sqlite3.linux.1.1.9\build\net35\SQLitePCLRaw.lib.e_sqlite3.linux.targets" Condition="Exists('..\packages\SQLitePCLRaw.lib.e_sqlite3.linux.1.1.9\build\net35\SQLitePCLRaw.lib.e_sqlite3.linux.targets')" />

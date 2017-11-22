@@ -8,14 +8,27 @@
     using System.Text;
     using System.Threading.Tasks;
 
-    public class ClipboardEntry
+    public class ClipboardHistory
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string CopiedText { get; set; }
         public DateTime Time { get; set; }
-        public string ProcessName { get; set; }
         public string WindowTitle { get; set; }
+        public Process Process { get; set; }
+
+        public ClipboardHistory()
+        {
+
+        }
+
+        public ClipboardHistory(string copiedText, DateTime time, string windowTitle, Process process)
+        {
+            CopiedText = copiedText;
+            Time = time;
+            WindowTitle = windowTitle;
+            Process = process;
+        }
     }
 }
