@@ -7,9 +7,13 @@ TODOs:
     - Global hotkey for showing the main window.
     - Insert entry text by double-clicking its row.
     - Edit entry.
-    - Auto-delete old entries.
     - Avoid duplicate entries.
-    - Implement ObservableCollection with custom methods.
+    - Implement ObservableCollection with custom methods (add a list of objects, replace entire collection, etc).
+    - Number the entries. Configure some shortcut to copy entry nº "x".
+    - Add new entries at the top of the scrolling list.
+    - Show a "star" button in each entry to save it as "favorite" (another scrolling list).
+    - Add an option to clear the entire history. The Favorites list shouldn't be cleared when this button is pressed.
+        - (probably unnecessary) Auto-delete old entries.
 
 Done:
     
